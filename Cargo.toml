@@ -1,0 +1,14 @@
+[package]
+name = "diffie-hellman-groups"
+version = "0.1.0"
+edition = "2021"
+description = "Diffie-Hellman Groups"
+authors = ["alvin.cpp@gmail.com"]
+license = "Apache-2.0"
+repository = "https://github.com/AlvinHon/schnorr"
+categories = ["cryptography"]
+keywords = ["cryptography", "rfc-3526"]
+
+[dependencies]
+num-bigint = { version = "0.4.5", features = ["rand", "serde"] }
+lazy_static = "1.5.0"
