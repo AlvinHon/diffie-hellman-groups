@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use lazy_static::lazy_static;
 use num_bigint::BigUint;
 
-pub trait PrimeGroup: Debug {
+pub trait MODPGroup: Debug {
     /// prime modulus
     fn prime_modulus() -> BigUint;
 
@@ -13,12 +13,17 @@ pub trait PrimeGroup: Debug {
     /// generator of the subgroup of order q
     fn generator() -> BigUint;
 
-    /// group operation - modular exponentiation, compute a^e mod p
-    fn op(a: &BigUint, e: &BigUint) -> BigUint;
+    /// modular exponentiation, compute a^e mod p
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint;
 
-    /// compute the element of the group from the scalar, compute g^scalar mod p
-    fn element(scalar: &BigUint) -> BigUint {
-        Self::op(&Self::generator(), scalar)
+    /// modular multiplication, compute a * b mod p
+    fn mul(a: &BigUint, b: &BigUint) -> BigUint {
+        (a * b) % Self::prime_modulus()
+    }
+
+    /// compute the element of the group from the exponent, compute g^e mod p
+    fn element(exponent: &BigUint) -> BigUint {
+        Self::pow(&Self::generator(), exponent)
     }
 }
 
@@ -31,7 +36,7 @@ pub trait PrimeGroup: Debug {
 #[derive(Debug)]
 pub struct MODPGroup5;
 
-impl PrimeGroup for MODPGroup5 {
+impl MODPGroup for MODPGroup5 {
     fn prime_modulus() -> BigUint {
         PRIME_GROUP_5.clone()
     }
@@ -45,7 +50,7 @@ impl PrimeGroup for MODPGroup5 {
         BigUint::from(2u32)
     }
 
-    fn op(a: &BigUint, e: &BigUint) -> BigUint {
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint {
         a.modpow(e, &PRIME_GROUP_5)
     }
 }
@@ -57,7 +62,7 @@ impl PrimeGroup for MODPGroup5 {
 #[derive(Debug)]
 pub struct MODPGroup14;
 
-impl PrimeGroup for MODPGroup14 {
+impl MODPGroup for MODPGroup14 {
     fn prime_modulus() -> BigUint {
         PRIME_GROUP_14.clone()
     }
@@ -71,7 +76,7 @@ impl PrimeGroup for MODPGroup14 {
         BigUint::from(2u32)
     }
 
-    fn op(a: &BigUint, e: &BigUint) -> BigUint {
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint {
         a.modpow(e, &PRIME_GROUP_14)
     }
 }
@@ -83,7 +88,7 @@ impl PrimeGroup for MODPGroup14 {
 #[derive(Debug)]
 pub struct MODPGroup15;
 
-impl PrimeGroup for MODPGroup15 {
+impl MODPGroup for MODPGroup15 {
     fn prime_modulus() -> BigUint {
         PRIME_GROUP_15.clone()
     }
@@ -97,7 +102,7 @@ impl PrimeGroup for MODPGroup15 {
         BigUint::from(2u32)
     }
 
-    fn op(a: &BigUint, e: &BigUint) -> BigUint {
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint {
         a.modpow(e, &PRIME_GROUP_15)
     }
 }
@@ -109,7 +114,7 @@ impl PrimeGroup for MODPGroup15 {
 #[derive(Debug)]
 pub struct MODPGroup16;
 
-impl PrimeGroup for MODPGroup16 {
+impl MODPGroup for MODPGroup16 {
     fn prime_modulus() -> BigUint {
         PRIME_GROUP_16.clone()
     }
@@ -123,7 +128,7 @@ impl PrimeGroup for MODPGroup16 {
         BigUint::from(2u32)
     }
 
-    fn op(a: &BigUint, e: &BigUint) -> BigUint {
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint {
         a.modpow(e, &PRIME_GROUP_16)
     }
 }
@@ -135,7 +140,7 @@ impl PrimeGroup for MODPGroup16 {
 #[derive(Debug)]
 pub struct MODPGroup17;
 
-impl PrimeGroup for MODPGroup17 {
+impl MODPGroup for MODPGroup17 {
     fn prime_modulus() -> BigUint {
         PRIME_GROUP_17.clone()
     }
@@ -149,7 +154,7 @@ impl PrimeGroup for MODPGroup17 {
         BigUint::from(2u32)
     }
 
-    fn op(a: &BigUint, e: &BigUint) -> BigUint {
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint {
         a.modpow(e, &PRIME_GROUP_17)
     }
 }
@@ -161,7 +166,7 @@ impl PrimeGroup for MODPGroup17 {
 #[derive(Debug)]
 pub struct MODPGroup18;
 
-impl PrimeGroup for MODPGroup18 {
+impl MODPGroup for MODPGroup18 {
     fn prime_modulus() -> BigUint {
         PRIME_GROUP_18.clone()
     }
@@ -175,7 +180,7 @@ impl PrimeGroup for MODPGroup18 {
         BigUint::from(2u32)
     }
 
-    fn op(a: &BigUint, e: &BigUint) -> BigUint {
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint {
         a.modpow(e, &PRIME_GROUP_18)
     }
 }

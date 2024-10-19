@@ -13,10 +13,10 @@ mod test {
 
     use crate::{
         element::Element,
-        group::{MODPGroup5, PrimeGroup},
+        group::{MODPGroup, MODPGroup5},
     };
 
-    fn test_key_exchange<G: PrimeGroup>() {
+    fn test_key_exchange<G: MODPGroup>() {
         // A = g^a mod p
         let a = BigUint::from_str("2").unwrap();
         let A = Element::<G>::from_biguint(a.clone());
