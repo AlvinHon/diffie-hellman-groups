@@ -13,13 +13,23 @@ pub trait MODPGroup: Debug {
     /// generator of the subgroup of order q
     fn generator() -> BigUint;
 
-    /// modular exponentiation, compute a^e mod p
-    fn pow(a: &BigUint, e: &BigUint) -> BigUint;
+    /// modular addition, compute a + b mod p
+    fn add(a: &BigUint, b: &BigUint) -> BigUint {
+        (a + b) % Self::prime_modulus()
+    }
+
+    /// modular subtraction, compute a - b mod p
+    fn sub(a: &BigUint, b: &BigUint) -> BigUint {
+        (a + Self::prime_modulus() - b) % Self::prime_modulus()
+    }
 
     /// modular multiplication, compute a * b mod p
     fn mul(a: &BigUint, b: &BigUint) -> BigUint {
         (a * b) % Self::prime_modulus()
     }
+
+    /// modular exponentiation, compute a^e mod p
+    fn pow(a: &BigUint, e: &BigUint) -> BigUint;
 
     /// compute the element of the group from the exponent, compute g^e mod p
     fn element(exponent: &BigUint) -> BigUint {
