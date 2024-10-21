@@ -3,6 +3,7 @@ use std::fmt::Debug;
 use lazy_static::lazy_static;
 use num_bigint::BigUint;
 
+/// Trait of the Modular Exponential (MODP) Groups for the Internet Key Exchange (IKE) protocol.
 pub trait MODPGroup: Debug {
     /// prime modulus
     fn prime_modulus() -> BigUint;
@@ -37,6 +38,8 @@ pub trait MODPGroup: Debug {
     }
 }
 
+/// Implementations of the MODPGroup trait for the MODP groups defined in RFC 3526.
+///
 /// The 1536 bit MODP group has been used for the implementations for
 /// quite a long time, but was not defined in RFC 2409 (IKE).
 /// Implementations have been using group 5 to designate this group, we
@@ -64,6 +67,8 @@ impl MODPGroup for MODPGroup5 {
     }
 }
 
+/// Implementations of the MODPGroup trait for the MODP groups defined in RFC 3526.
+///
 /// 2048-bit MODP Group
 /// This group is assigned id 14.
 ///
@@ -89,6 +94,8 @@ impl MODPGroup for MODPGroup14 {
     }
 }
 
+/// Implementations of the MODPGroup trait for the MODP groups defined in RFC 3526.
+///
 /// 3072-bit MODP Group
 /// This group is assigned id 15.
 ///
@@ -114,6 +121,8 @@ impl MODPGroup for MODPGroup15 {
     }
 }
 
+/// Implementations of the MODPGroup trait for the MODP groups defined in RFC 3526.
+///
 /// 4096-bit MODP Group
 /// This group is assigned id 16.
 ///
@@ -139,6 +148,8 @@ impl MODPGroup for MODPGroup16 {
     }
 }
 
+/// Implementations of the MODPGroup trait for the MODP groups defined in RFC 3526.
+///
 /// 6144-bit MODP Group
 /// This group is assigned id 17.
 ///
@@ -164,6 +175,8 @@ impl MODPGroup for MODPGroup17 {
     }
 }
 
+/// Implementations of the MODPGroup trait for the MODP groups defined in RFC 3526.
+///
 /// 8192-bit MODP Group
 /// This group is assigned id 18.
 ///

@@ -12,3 +12,4 @@ keywords = ["cryptography", "rfc-3526"]
 [dependencies]
 num-bigint = { version = "0.4.5", features = ["rand", "serde"] }
 lazy_static = "1.5.0"
+serde = { version = "1.0.210", features = ["serde_derive"] }

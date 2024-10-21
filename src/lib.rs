@@ -1,7 +1,12 @@
 //! Defines data structures representing Diffie-Hellman Groups stated in [RFC3526](https://datatracker.ietf.org/doc/rfc3526/)
 
 pub mod element;
+pub use element::Element;
+
 pub mod group;
+pub use group::{
+    MODPGroup, MODPGroup14, MODPGroup15, MODPGroup16, MODPGroup17, MODPGroup18, MODPGroup5,
+};
 
 #[cfg(test)]
 mod test {
