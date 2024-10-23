@@ -8,10 +8,10 @@ pub trait MODPGroup: Debug {
     /// prime modulus
     fn prime_modulus() -> BigUint;
 
-    /// prime order of the subgroup with generator g
-    fn order() -> BigUint;
+    /// The Sophie Germain Prime, i.e. q
+    fn sophie_garmain_prime() -> BigUint;
 
-    /// generator of the subgroup of order q
+    /// generator of the subgroup of order 2q
     fn generator() -> BigUint;
 
     /// modular addition, compute a + b mod p
@@ -54,8 +54,8 @@ impl MODPGroup for MODPGroup5 {
         PRIME_GROUP_5.clone()
     }
 
-    fn order() -> BigUint {
-        ORDER_GROUP_5.clone()
+    fn sophie_garmain_prime() -> BigUint {
+        Q_GROUP_5.clone()
     }
 
     fn generator() -> BigUint {
@@ -81,8 +81,8 @@ impl MODPGroup for MODPGroup14 {
         PRIME_GROUP_14.clone()
     }
 
-    fn order() -> BigUint {
-        ORDER_GROUP_14.clone()
+    fn sophie_garmain_prime() -> BigUint {
+        Q_GROUP_14.clone()
     }
 
     fn generator() -> BigUint {
@@ -108,8 +108,8 @@ impl MODPGroup for MODPGroup15 {
         PRIME_GROUP_15.clone()
     }
 
-    fn order() -> BigUint {
-        ORDER_GROUP_15.clone()
+    fn sophie_garmain_prime() -> BigUint {
+        Q_GROUP_15.clone()
     }
 
     fn generator() -> BigUint {
@@ -135,8 +135,8 @@ impl MODPGroup for MODPGroup16 {
         PRIME_GROUP_16.clone()
     }
 
-    fn order() -> BigUint {
-        ORDER_GROUP_16.clone()
+    fn sophie_garmain_prime() -> BigUint {
+        Q_GROUP_16.clone()
     }
 
     fn generator() -> BigUint {
@@ -162,8 +162,8 @@ impl MODPGroup for MODPGroup17 {
         PRIME_GROUP_17.clone()
     }
 
-    fn order() -> BigUint {
-        ORDER_GROUP_17.clone()
+    fn sophie_garmain_prime() -> BigUint {
+        Q_GROUP_17.clone()
     }
 
     fn generator() -> BigUint {
@@ -189,8 +189,8 @@ impl MODPGroup for MODPGroup18 {
         PRIME_GROUP_18.clone()
     }
 
-    fn order() -> BigUint {
-        ORDER_GROUP_18.clone()
+    fn sophie_garmain_prime() -> BigUint {
+        Q_GROUP_18.clone()
     }
 
     fn generator() -> BigUint {
@@ -215,7 +215,7 @@ lazy_static! {
         16,
     )
     .unwrap();
-    static ref ORDER_GROUP_5: BigUint = BigUint::parse_bytes(
+    static ref Q_GROUP_5: BigUint = BigUint::parse_bytes(
         b"7FFFFFFFFFFFFFFFE487ED5110B4611A62633145C06E0E68\
         948127044533E63A0105DF531D89CD9128A5043CC71A026E\
         F7CA8CD9E69D218D98158536F92F8A1BA7F09AB6B6A8E122\
@@ -242,7 +242,7 @@ lazy_static! {
         16,
     )
     .unwrap();
-    static ref ORDER_GROUP_14: BigUint = BigUint::parse_bytes(
+    static ref Q_GROUP_14: BigUint = BigUint::parse_bytes(
         b"7FFFFFFFFFFFFFFFE487ED5110B4611A62633145C06E0E68\
         948127044533E63A0105DF531D89CD9128A5043CC71A026E\
         F7CA8CD9E69D218D98158536F92F8A1BA7F09AB6B6A8E122\
@@ -303,7 +303,7 @@ lazy_static! {
         16,
     )
     .unwrap();
-    static ref ORDER_GROUP_15: BigUint = BigUint::parse_bytes(
+    static ref Q_GROUP_15: BigUint = BigUint::parse_bytes(
         b"7FFFFFFFFFFFFFFFE487ED5110B4611A62633145C06E0E68\
         948127044533E63A0105DF531D89CD9128A5043CC71A026E\
         F7CA8CD9E69D218D98158536F92F8A1BA7F09AB6B6A8E122\
@@ -323,7 +323,7 @@ lazy_static! {
         16
     )
     .unwrap();
-    static ref ORDER_GROUP_16: BigUint = BigUint::parse_bytes(
+    static ref Q_GROUP_16: BigUint = BigUint::parse_bytes(
         b"7FFFFFFFFFFFFFFFE487ED5110B4611A62633145C06E0E68\
         948127044533E63A0105DF531D89CD9128A5043CC71A026E\
         F7CA8CD9E69D218D98158536F92F8A1BA7F09AB6B6A8E122\
@@ -381,7 +381,7 @@ lazy_static! {
         16,
     )
     .unwrap();
-    static ref ORDER_GROUP_17: BigUint = BigUint::parse_bytes(
+    static ref Q_GROUP_17: BigUint = BigUint::parse_bytes(
         b"7FFFFFFFFFFFFFFFE487ED5110B4611A62633145C06E0E68\
         948127044533E63A0105DF531D89CD9128A5043CC71A026E\
         F7CA8CD9E69D218D98158536F92F8A1BA7F09AB6B6A8E122\
@@ -464,7 +464,7 @@ lazy_static! {
         16,
     )
     .unwrap();
-    static ref ORDER_GROUP_18: BigUint = BigUint::parse_bytes(
+    static ref Q_GROUP_18: BigUint = BigUint::parse_bytes(
         b"7FFFFFFFFFFFFFFFE487ED5110B4611A62633145C06E0E68\
         948127044533E63A0105DF531D89CD9128A5043CC71A026E\
         F7CA8CD9E69D218D98158536F92F8A1BA7F09AB6B6A8E122\
@@ -520,7 +520,7 @@ mod test {
     use super::*;
 
     fn test_order<G: MODPGroup>() {
-        let lhs = G::order();
+        let lhs = G::sophie_garmain_prime();
         let rhs = (G::prime_modulus() - BigUint::from(1u32)) / BigUint::from(2u32);
         assert_eq!(lhs, rhs);
     }

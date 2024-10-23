@@ -8,10 +8,10 @@ pub use group::{
     MODPGroup, MODPGroup14, MODPGroup15, MODPGroup16, MODPGroup17, MODPGroup18, MODPGroup5,
 };
 
-#[cfg(feature = "subgroup")]
-pub mod subgroup;
-#[cfg(feature = "subgroup")]
-pub use subgroup::SubGroup;
+#[cfg(feature = "primegroup")]
+pub mod primegroup;
+#[cfg(feature = "primegroup")]
+pub use primegroup::PrimeGroup;
 
 #[cfg(test)]
 mod test {
