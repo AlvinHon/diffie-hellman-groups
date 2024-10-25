@@ -20,7 +20,7 @@ impl PrimeGroup {
     /// Create a new group from `MODPGroup` with a different generator of `num_bits` bits.
     ///
     /// # Panics
-    /// Panics if `num_bits` is less than 2 or greater than the number of bits in the order of the group.
+    /// Panics if `num_bits` is less than 2 or greater than the number of bits in the prime modulus `p`.
     ///
     /// # Example
     ///
@@ -34,7 +34,7 @@ impl PrimeGroup {
     pub fn new<G: MODPGroup>(num_bits: usize) -> Self {
         let p = G::prime_modulus();
         let q = G::sophie_garmain_prime();
-        assert!(num_bits >= 2 && num_bits <= q.bits() as usize);
+        assert!(num_bits >= 2 && num_bits <= p.bits() as usize);
         let g;
 
         let rng = &mut rand::thread_rng();
