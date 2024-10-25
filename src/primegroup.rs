@@ -1,5 +1,5 @@
 use num_bigint::{BigUint, RandomBits};
-use num_primes::Verification;
+use num_prime::{nt_funcs, Primality};
 use rand::Rng;
 
 use crate::MODPGroup;
@@ -34,12 +34,12 @@ impl PrimeGroup {
     pub fn new<G: MODPGroup>(num_bits: usize) -> Self {
         let p = G::prime_modulus();
         let q = G::sophie_garmain_prime();
-        assert!(num_bits >= 2 && num_bits <= q.bits());
+        assert!(num_bits >= 2 && num_bits <= q.bits() as usize);
         let g;
 
         let rng = &mut rand::thread_rng();
         loop {
-            let a = rng.sample::<BigUint, _>(RandomBits::new(num_bits));
+            let a = rng.sample::<BigUint, _>(RandomBits::new(num_bits as u64));
             if a != G::generator() {
                 let res = a.modpow(&q, &p);
                 if res == BigUint::from(1u64) {
@@ -73,15 +73,15 @@ impl PrimeGroup {
     /// ```
     pub fn new_with(p: BigUint, generator_num_bits: usize) -> Self {
         assert!(generator_num_bits >= 2);
-        assert!(generator_num_bits <= p.bits());
-        assert!(Verification::is_safe_prime(&p));
+        assert!(generator_num_bits <= p.bits() as usize);
+        assert!(nt_funcs::is_safe_prime(&p) == Primality::Yes);
 
         // q is a sophie germain prime
         let q = (&p - BigUint::from(1u64)) / BigUint::from(2u64);
         let g;
         let rng = &mut rand::thread_rng();
         loop {
-            let a = rng.sample::<BigUint, _>(RandomBits::new(generator_num_bits));
+            let a = rng.sample::<BigUint, _>(RandomBits::new(generator_num_bits as u64));
             let res = a.modpow(&q, &p);
             if res == BigUint::from(1u64) {
                 g = a;
